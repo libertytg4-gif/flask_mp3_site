@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Видео → MP3 конвертер</title>
+  <link rel="icon" href="data:,">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>Видео → MP3</h1>
+      <p class="muted">Загрузите файл. Укажите имя и качество. Нажмите «Конвертировать».</p>
+    </header>
+
+    <main class="content">
+      <!-- Dropzone -->
+      <div id="dropzone" class="dropzone" tabindex="0">
+        <div class="arrow">⬇</div>
+        <div class="drop-text">Перетащите файл сюда или <span class="link">выберите</span></div>
+        <input id="file-input" type="file" accept="video/*,audio/*" hidden>
+      </div>
+
+      <!-- Form -->
+      <form id="form" class="panel" onsubmit="return false;">
+        <label class="label">имя файла</label>
+        <input id="picked-name" class="input" type="text" placeholder="файл не выбран" disabled>
+
+        <div class="row">
+          <!-- обёртка + лейбл над полем имени -->
+          <div class="select-wrap">
+            <label for="output-name" class="label small">Название файла</label>
+            <input id="output-name" class="input" type="text" placeholder="имя выходного файла">
+          </div>
+
+          <div class="select-wrap">
+            <label for="quality" class="label small">качество</label>
+            <select id="quality" class="select">
+              <option value="low">низкое</option>
+              <option value="medium" selected>среднее</option>
+              <option value="high">высокое</option>
+            </select>
+          </div>
+        </div>
+
+
+        <!-- Progress + status -->
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+        </div>
+        <div id="status" class="status" aria-live="polite"></div>
+
+        <button id="convert-btn" class="button" type="button">конвертировать</button>
+      </form>
+    </main>
+
+
+  <script type="module" src="{{ url_for(\'static\', filename=\'script.js\') }}"></script>
+
+</body>
+</html>
